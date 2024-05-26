@@ -1,9 +1,9 @@
 import streamlit as st
 
 def get_days()-> list:
-    pass
+    return ["Monday", "Tuesday", "Wednesday"]
 def get_times()->list:
-    pass
+    return ["9:00AM-10:20AM", "10:30AM-11:50AM"]
 def get_final_time(day: str, time: str) -> str:
     pass
 def display_schedule():
@@ -35,17 +35,19 @@ st.title("Select the days and time you have your class to see your final test sc
 
 class_day_list = get_days()
 days = st.selectbox(
+    "Select the your class days",
     class_day_list, 
     placeholder="Day(s)"
 )
 class_time_list = get_times()
 time = st.selectbox(
+    "Select the time of your class",
     class_time_list,
     placeholder="Time"
 )
 if 'schedule' not in st.session_state:
     st.session_state.schedule = []
-st.session_state.schedule.add((days, time))
+st.session_state.schedule.append((days, time))
 
 if 'add' not in st.session_state:
     st.session_state.add = False
