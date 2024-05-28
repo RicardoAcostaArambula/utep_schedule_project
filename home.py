@@ -1,11 +1,25 @@
 import streamlit as st
 
 def get_days()-> list:
-    return ["Monday", "Tuesday", "Wednesday"]
+    return ["Mondays", "Tuesday", "Wednesday", "Thursday",
+            "MWF", "MW", "TR"]
 def get_times()->list:
-    return ["9:00AM-10:20AM", "10:30AM-11:50AM"]
+    return ["7:30am - 8:20 am", "8:30 am - 9:20 am", "9:30 am - 10:20 am",
+            "9:00 am - 10:20 am", "10:30 am - 11:20 am", "10:30 am - 11:50 am", 
+            "11:30 am - 12:20", "12:30 pm - 1:20 pm", "12:00 pm - 1:20 pm"
+            "1:30 pm - 2:20 pm","1:30 - 2:50 pm", "2:30 - 3:20 pm", 
+            "3:00 pm - 4:20 pm", "4:30 pm - 5:50 pm", "4:30 pm - 7:20 pm",
+            "6:00 pm - 7:20 pm", "6:00 pm - 8:50 pm", "7:30 am - 8:50 am"]
 def get_final_time(day: str, time: str) -> str:
-    pass
+    #read the final_times file and search for the day and time and return the final time
+    st.session_state['schedule'] = []
+    with open('final_times.cvs', 'r') as file:
+        for line in file:
+            days, times , _ = line.strip().split(',')
+            if days == day and times == time:
+                print(line)
+                st.session_state.schedule.append(line)
+
 def display_schedule():
     col1, col2, col3 = st.columns(3)
     with col1:
