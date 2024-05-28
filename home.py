@@ -12,34 +12,45 @@ def get_times()->list:
             "6:00 pm - 7:20 pm", "6:00 pm - 8:50 pm", "7:30 am - 8:50 am"]
 def get_final_time(day: str, time: str) -> str:
     #read the final_times file and search for the day and time and return the final time
-    st.session_state['schedule'] = []
-    with open('final_times.cvs', 'r') as file:
+    if 'schedule' not in st.session_state:
+        st.session_state['schedule'] = []
+    with open('final_times.txt', 'r') as file:
         for line in file:
-            days, times , _ = line.strip().split(',')
+            line_list = line.strip().split(',')
+            days = line_list[0]
+            times = line_list[1]
+            # st.write(f"{days} - {day} | {times} - {time}")
+            # st.write((days == day) and (times == time))
             if days == day and times == time:
-                print(line)
-                st.session_state.schedule.append(line)
+                # st.write(line_list[0])
+                # st.write(line_list[1])
+                # st.write(line_list[2])
+                st.session_state.schedule.append(line_list)
 
 def display_schedule():
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     with col1:
-        print("Days")
+        st.write("Days")
     with col2:
-        print("Time")
+        st.write("Time")
     with col3:
-        print("Final time")
-    col4, col5, col6, col7 = st.columns(4)
+        st.write("Final time")
+    with col4:
+        st.write("Update")
+    col5, col6, col7, col8 = st.columns(4)
     index = 0
-    for days, time, final in st.session_state.schedule:
-        with col4:
-            print(days)
-        with col5:
-            print(time)
-        with col6:
-            print(final)
+    for line in st.session_state.schedule:
+        st.write(line)
+        # with col5:
+        #     st.write(days)
+        # with col6:
+        #     st.write(time)
+        # with col7:
+        #     st.write(final)
         st.divider()
-        with col7:
-            delete = st.button("Delete", ke=f"index-{index}")
+        # with col8:
+        #     delete = st.button("Delete", key=f"index-{index}")
+        #     index+=1
             
     
 st.header("Welcome to the place where you will find your Final schedule in a pleasent way")
@@ -70,7 +81,7 @@ add = st.button("Add to schedule", key="Add")
 
 if add:
     final_time = get_final_time(days, time)
-    st.session_state.schedule.add((days, time, final_time))
+    st.session_state.schedule.append((days, time, final_time))
     display_schedule()
     st.session_state.add = False
 
