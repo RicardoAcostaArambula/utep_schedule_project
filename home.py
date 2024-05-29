@@ -75,7 +75,6 @@ with col2:
     )
 if 'schedule' not in st.session_state:
     st.session_state['schedule'] = []
-#st.session_state['schedule'].append([days, time])
 
 if 'add' not in st.session_state:
     st.session_state.add = False
