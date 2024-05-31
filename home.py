@@ -26,7 +26,6 @@ def get_final_time(day: str, time: str) -> str:
 st.header("Welcome to the place where you will find your Final schedule in a pleasent way")
 st.title("Select the days and time you have your class to see your final test schedule")
 
-
 class_day_list = get_days()
 col1, col2, col3 = st.columns(3)
 
@@ -58,8 +57,8 @@ if 'display' not in st.session_state:
     st.session_state['display'] = False
 
 with col3:
-    add = st.button("Add to schedule", key="Add")
-    display= st.button("Display schedule", key="Display")
+    add = st.button("Add to schedule", key="Add", type="primary")
+    display= st.button("Display schedule", key="Display", type="primary")
     st.session_state['add'] = False
     
 if add:
