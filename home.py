@@ -19,8 +19,6 @@ def get_final_time(day: str, time: str) -> str:
             line_list = line.strip().split(',')
             days = line_list[0]
             times = line_list[1]
-            # st.write(f"{days} - {day} | {times} - {time}")
-            # st.write((days == day) and (times == time))
             if days == day and times == time:
                 return line_list[2]
     return "Time not found"
