@@ -57,8 +57,8 @@ if 'display' not in st.session_state:
     st.session_state['display'] = False
 
 with col3:
-    add = st.button("Add to schedule", key="Add", type="primary")
-    display= st.button("Display schedule", key="Display", type="primary")
+    add = st.button("Add to schedule",use_container_width=True, key="Add", type="primary")
+    display= st.button("Display schedule", use_container_width=True,key="Display", type="primary")
     st.session_state['add'] = False
     
 if add:
@@ -75,15 +75,15 @@ if display:
     else:
         col1, col2, col3, col4, col5= st.columns(5)
         with col1:
-            st.write("Days")
+            st.subheader("Days")
         with col2:
-            st.write("Time")
+            st.subheader("Time")
         with col3:
-            st.write("Final time")
+            st.subheader("Final time")
         with col4:
-            st.write("Update")
+            st.subheader("Update")
         with col5:
-            st.write("Add to calendar")
+            st.subheader("Add")
         col6, col7, col8, col9, col10 = st.columns(5)
         index = 0
         for line in st.session_state['schedule']:
@@ -95,10 +95,10 @@ if display:
             with col8:
                 st.write(final)
             with col9:
-                delete = st.button("Delete", key=f"index-{index}")
+                delete = st.button("Delete", use_container_width=True,key=f"index-{index}")
                 index+=1
             with col10:
-                add_to_calendar = st.button("Add to Calendar", key=f"add-{index}")
+                add_to_calendar = st.button("Add to Calendar", use_container_width=True,key=f"add-{index}")
         st.session_state['display'] = False
 
 
