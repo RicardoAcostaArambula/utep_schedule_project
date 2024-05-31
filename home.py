@@ -60,7 +60,7 @@ if 'display' not in st.session_state:
 with col3:
     add = st.button("Add to schedule", key="Add")
     display= st.button("Display schedule", key="Display")
-    st.session_state.add = False
+    st.session_state['add'] = False
     
 if add:
     final_time = get_final_time(days, time)
@@ -103,3 +103,6 @@ if display:
         st.session_state['display'] = False
 
 
+        if st.button("Clear schedule", key="Clear_Schedule"):
+            st.session_state['schedule'] = []
+            st.session_state['display'] = True
