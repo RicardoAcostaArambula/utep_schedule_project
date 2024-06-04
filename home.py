@@ -23,8 +23,42 @@ def get_final_time(day: str, time: str) -> str:
             if days == day and times == time:
                 return line_list[2]
     return "Time not found"
-st.header("Welcome to the place where you will find your Final schedule in a pleasent way")
-st.title("Select the days and time you have your class to see your final test schedule")
+def clear_schedule():
+    st.session_state['schedule'] = []
+
+def display_schedule():
+    col1, col2, col3, col4, col5= st.columns(5)
+    with col1:
+        st.subheader("Days")
+    with col2:
+        st.subheader("Time")
+    with col3:
+        st.subheader("Final time")
+    with col4:
+        st.subheader("Update")
+    with col5:
+        st.subheader("Add")
+    col6, col7, col8, col9, col10 = st.columns(5)
+    index = 0
+    for line in st.session_state['schedule']:
+        days, time, final = line
+        with col6:
+            st.write(days)
+        with col7:
+            st.write(time)
+        with col8:
+            st.write(final)
+        with col9:
+            delete = st.button("Delete", use_container_width=True,key=f"index-{index}")
+            index+=1
+        with col10:
+            add_to_calendar = st.button("Add to Calendar", use_container_width=True,key=f"add-{index}")
+    
+    
+
+
+st.title("Welcome to the place where you will find your Final schedule in a pleasent way")
+st.header("Select the days and time you have your class to see your final test schedule")
 
 class_day_list = get_days()
 col1, col2, col3 = st.columns(3)
@@ -58,7 +92,7 @@ if 'display' not in st.session_state:
 
 with col3:
     add = st.button("Add to schedule",use_container_width=True, key="Add", type="primary")
-    display= st.button("Display schedule", use_container_width=True,key="Display", type="primary")
+    display = st.button("Display schedule", use_container_width=True,key="Display", type="primary")
     st.session_state['add'] = False
     
 if add:
@@ -66,42 +100,18 @@ if add:
     if final_time == "Time not found":
         st.error("Time was not found, please select a valid day and tiem for your class")
     else:
-        st.session_state.schedule.append([days, time, final_time])
+        st.session_state['schedule'].append([days, time, final_time])
         st.success("Succesfully added to your schedule!", icon="✅")
     st.session_state['add'] = False
 if display:
     if not st.session_state['schedule']:
         st.error("Schedule is empty, please add classes")
     else:
-        col1, col2, col3, col4, col5= st.columns(5)
-        with col1:
-            st.subheader("Days")
-        with col2:
-            st.subheader("Time")
-        with col3:
-            st.subheader("Final time")
-        with col4:
-            st.subheader("Update")
-        with col5:
-            st.subheader("Add")
-        col6, col7, col8, col9, col10 = st.columns(5)
-        index = 0
-        for line in st.session_state['schedule']:
-            days, time, final = line
-            with col6:
-                st.write(days)
-            with col7:
-                st.write(time)
-            with col8:
-                st.write(final)
-            with col9:
-                delete = st.button("Delete", use_container_width=True,key=f"index-{index}")
-                index+=1
-            with col10:
-                add_to_calendar = st.button("Add to Calendar", use_container_width=True,key=f"add-{index}")
-        st.session_state['display'] = False
-
-
-        if st.button("Clear schedule", key="Clear_Schedule"):
-            st.session_state['schedule'] = []
-            st.session_state['display'] = True
+        display_schedule()
+        clear = st.button("Clear schedule", key="Clear_Schedule")
+        if clear:
+            st.write("reached")
+            clear_schedule()
+            st.success("Schedule was succesfully cleared!", icon="✅")
+            st.session_state['display'] = False
+       
