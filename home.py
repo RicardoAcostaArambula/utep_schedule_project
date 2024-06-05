@@ -98,7 +98,7 @@ with col3:
 if add:
     final_time = get_final_time(days, time)
     if final_time == "Time not found":
-        st.error("Time was not found, please select a valid day and tiem for your class")
+        st.error("Time was not found, please select a valid day and time for your class")
     else:
         st.session_state['schedule'].append([days, time, final_time])
         st.success("Succesfully added to your schedule!", icon="✅")
